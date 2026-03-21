@@ -5,9 +5,10 @@ from PIL import Image
 
 
 def convert_image(path: Path, outdir: Path) -> Path:
-    """Convert any raster image to PNG 1872x1404, 226 DPI, grayscale, white bg."""
+    """Convert any raster image to PNG 1404x1872 (portrait), 226 DPI, grayscale, white bg."""
     DEFAULT_DPI = 226
-    DEFAULT_SIZE = (1872, 1404)
+    PORTRAIT_SIZE = (1404, 1872)
+    LANDSCAPE_SIZE = (1872, 1404)
     outdir.mkdir(parents=True, exist_ok=True)
     with Image.open(path) as im:
         # Flatten transparency onto white
@@ -15,8 +16,12 @@ def convert_image(path: Path, outdir: Path) -> Path:
             bg = Image.new("RGBA", im.size, (255, 255, 255, 255))
             bg.paste(im, mask=im.split()[-1])
             im = bg.convert("RGB")
-        # Convert to grayscale and resize
-        im = im.convert("L").resize(DEFAULT_SIZE)
+        # Rotate if image is landscape
+        width, height = im.size
+        if width > height:
+            im = im.rotate(90, expand=True)
+        # Convert to grayscale and resize to portrait
+        im = im.convert("L").resize(PORTRAIT_SIZE)
         out = outdir / (path.stem + ".png")
         im.save(out, "PNG", dpi=(DEFAULT_DPI, DEFAULT_DPI))
         return out
