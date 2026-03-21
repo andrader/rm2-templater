@@ -159,6 +159,9 @@ def add(
     force: bool = typer.Option(
         False, "--force", help="Overwrite existing template entries with same filename"
     ),
+    orientation: str = typer.Option(
+        "auto", "--orientation", "-o", help="Output orientation: auto (default), portrait, or landscape", show_default=True
+    ),
 ):
     """Add new template(s): converts to correct PNG, uploads, registers in templates.json."""
     ssh = ssh_connect()
@@ -190,7 +193,7 @@ def add(
     # Convert and upload
     new_entries = []
     for f in files:
-        png = convert_image(f, settings.remarkable_convert_dir)
+        png = convert_image(f, settings.remarkable_convert_dir, orientation=orientation)
         remote_png = f"{settings.remarkable_templates_dir}/{settings.remarkable_default_category}/{png.name}"
         sftp.put(str(png), remote_png)
         entry = {
