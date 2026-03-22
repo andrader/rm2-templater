@@ -18,6 +18,7 @@ dependencies = [
 
 [project.scripts]
 rm2 = "rm2_templater.cli:app"
+rm2-templater = "rm2_templater.cli:app"
 
 [build-system]
 requires = ["hatchling"]
