@@ -13,6 +13,31 @@ A command-line tool for managing custom templates on your reMarkable 2 tablet. E
 
 ## Installation
 
+### Recommended: Install with uv
+
+#### Install globally (best for repeated use):
+```bash
+uv tool install git+https://github.com/andrader/rm2-templater.git
+```
+- Installs the CLI globally for easy reuse: just run `rm2` or `rm2-templater`.
+
+#### Run instantly (no install, best for one-off use):
+```bash
+uvx --from git+https://github.com/andrader/rm2-templater.git --help
+```
+- Runs the CLI directly from the repo, no global install or environment changes.
+
+To uninstall:
+```bash
+uv tool uninstall rm2-templater
+```
+
+Choose `uv tool install` for persistent, system-wide access. Use `uvx` for quick, disposable runs without installing anything globally.
+
+---
+
+### Alternative: Install with pip
+
 ```bash
 pip install rm2-templater
 ```
@@ -20,7 +45,7 @@ pip install rm2-templater
 Or install from source:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/andrader/rm2-templater.git
 cd rm2-templater
 pip install -e .
 ```
