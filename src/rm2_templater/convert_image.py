@@ -5,9 +5,9 @@ from PIL import Image
 
 
 def convert_image(path: Path, outdir: Path) -> Path:
-    """Convert any raster image to PNG 1872x1404, 226 DPI, grayscale, white bg."""
+    """Convert any raster image to PNG 1404x1872, 226 DPI, grayscale, white bg."""
     DEFAULT_DPI = 226
-    DEFAULT_SIZE = (1872, 1404)
+    DEFAULT_SIZE = (1404, 1872)
     outdir.mkdir(parents=True, exist_ok=True)
     with Image.open(path) as im:
         # Flatten transparency onto white

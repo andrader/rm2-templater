@@ -10,3 +10,7 @@ wheels/
 .venv
 templates.json
 .DS_Store
+
+# RM2 folders
+converted
+backups
